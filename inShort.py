@@ -86,7 +86,7 @@ def getNews(category,count=10):
             print("some went wrong inside exception")
             
     # print(newsDictionary['data'])
-    return len(newsDictionary['data'])
+    return newsDictionary['data']
 
 def unixToUtc(time):
 
