@@ -28,7 +28,7 @@ params = (
 )
 
 
-def getNews(category,count=10):
+def getNews(category,count=50):
     if category == 'all':
         print("inside all")
         response = requests.get(

@@ -69,6 +69,6 @@ async def root():
     return News()
 
 @app.get("/inshorts")
-async def shorts():
+async def shorts(count:int=50,category:str="all"):
     print("get for inshorts")
-    return inShort.getNews("all",40)
+    return inShort.getNews(category,count)
