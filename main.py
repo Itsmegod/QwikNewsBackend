@@ -3,6 +3,7 @@
 from fastapi import FastAPI
 import json
 import short
+import inShort
 def load_news_data(filename):
   """
   Loads news data from a JSON file.
@@ -66,3 +67,8 @@ app.add_middleware(
 @app.get("/")
 async def root():
     return News()
+
+@app.get("/inshorts")
+async def shorts():
+    print("get for inshorts")
+    return inShort.getNews("all",40)
