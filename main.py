@@ -6,7 +6,7 @@ import short
 import inShort
 import IENews
 # import support
-from fastapi_utils.tasks import repeat_every
+# from fastapi_utils.tasks import repeat_every
 
 def load_news_data(filename):
   """
@@ -58,8 +58,12 @@ app.add_middleware(
 
 #I want to make it a main function to fectch news.
 def res():
-   IENews.get_news()
-   return load_news_data("news.json")
+    try:
+      return load_news_data("news.json")
+    finally:
+      print("started fetching news")
+      IENews.get_news()
+   
    
 
 @app.get("/")
