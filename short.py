@@ -37,7 +37,7 @@ def parse_html_for_shorts(html_content):
         image_url = short_img_url.get('src')
         page_url = article.find("a",id="ie_shorts_readfull_h").get('href')
         categoryUrl = article.get("data-url")
-        dateT = article.find("span",class_="shorts_published_detail").text.strip().split(" ")
+        dateT = article.find("span",class_="shorts_published_detail").text.strip()
         # print(dateT)
         # print(page_url)
           # Check if the 'src' attribute exists
@@ -52,7 +52,7 @@ def parse_html_for_shorts(html_content):
                 'urlToImage': image_url,
                 "url": page_url,
                 "category": extractCat(categoryUrl),
-                "date":f"{dateT[2]} {dateT[1]} {dateT[3]}"
+                "date":dateT.split(",")[0][9:]
             })
 
     #         # "articles": [
@@ -69,7 +69,7 @@ def parse_html_for_shorts(html_content):
 
     return scraped_data
 
-def fetch_html_source(url= "https://indianexpress.com/shorts/"):
+def fetch_html_sourceIE(url= "https://indianexpress.com/shorts/"):
   """
   Fetches the HTML source of a web page using its URL.
 
@@ -93,7 +93,7 @@ def fetch_html_source(url= "https://indianexpress.com/shorts/"):
 
 # # print(html_content)
 
-# data = fetch_html_source()
+# data = fetch_html_sourceIE()
 # print(data[0])
 
 

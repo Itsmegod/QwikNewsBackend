@@ -4,6 +4,10 @@ from fastapi import FastAPI
 import json
 import short
 import inShort
+import IENews
+# import support
+from fastapi_utils.tasks import repeat_every
+
 def load_news_data(filename):
   """
   Loads news data from a JSON file.
@@ -29,26 +33,7 @@ def load_news_data(filename):
     print(f"Error: Failed to parse JSON data. {e}")
     return None
 
-def News():
 
-  
-# Example usage
-    filename = 'news.json'
-    news_data = load_news_data(filename)
-
-    if news_data:
-  # Access data using dictionary keys
-  # (Replace 'title' and 'content' with actual keys from your JSON data)
-  # print(news_data['articles'][0]['title'])
-        articles = news_data['articles']
-    # for news_item in articles:
-    #     print(f"Title: {news_item['title']}")
-    #     print(f"Content: {news_item['description']}")
-    #     print("-" * 20)
-    else:
-        print("Error: Could not load news data.")
-    # return articles
-    return short.fetch_html_source()
 
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -64,9 +49,29 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# @repeat_every(seconds=2)  # 1 hour
+# async def doItS():
+#      writeNewsToJsonFile()
+
+#Current working method But plans to update.
+
+
+#I want to make it a main function to fectch news.
+def res():
+   IENews.get_news()
+   return load_news_data("news.json")
+   
+
 @app.get("/")
 async def root():
-    return News()
+    return short.fetch_html_sourceIE()
+
+@app.get("/news")
+async def root():
+    
+    return res() 
+#This function is loading news data from news.json and sending as response.
+#File news.json is updated with latest news in a different func.
 
 @app.get("/inshorts")
 async def shorts(count:int=50,category:str="all"):
