@@ -27,7 +27,7 @@ categoryList = [
   { id: 13, category: "international", keywords: ["international", "world"] },
 
 ]
-news_array = []
+
 def writeNewsToJsonFile(jsonfile):
        
     # Open the file in write mode ("w")
@@ -91,7 +91,7 @@ def parse_html_for_news(html_content):
         
 
         if title_element and content_element:
-            news_array.append({
+            scraped_data.append({
                 'id': uuid.uuid4().hex,
                 'title': title_element.text.strip(),
                 'description': content,
@@ -112,7 +112,7 @@ def parse_html_for_news(html_content):
     #   "publishedAt": "2024-04-08T16:45:55Z",
     #   "content": "Boat from India has reportedly faced a major breach that affects more than 7 million customers of the audio company. Boat is one of the top selling brands in the affordable audio segment, which has c… [+1992 chars]"
     # }
-
+    
     return scraped_data
 
 
@@ -159,15 +159,17 @@ def get_news():
    "technology",
     "education"]
     
-     
+    news_array = []
     for i in cat:
     #    print(i)
-       IE_News(IEurl,i)
+       news_array.extend(IE_News(IEurl,i))
     # news_data = {category: IE_News(IEurl,category) for category in cat}
     writeNewsToJsonFile({"data": {
     "category_list":cat,
     "news_list": news_array 
     }})
+    print(len(news_array))
 
 # Print the JSON data
 # get_news()
+# print(len(news_array))
