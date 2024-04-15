@@ -3,5 +3,5 @@ This is a fastapi backend that scrapes data from Inshorts, Indian Express and ot
 Demo of the app can be found on https://qwiknews.netlify.app
 
 ##End point
-https://qwiknewsbackend.render.com/news
+https://qwiknewsbackend.onrender.com/news
 
