@@ -99,10 +99,10 @@ async def showvisits():
 
 
 class Visits(BaseModel):
-   ip:str
+   ip:str | None = None
    date:str
    time:str
-   location:str
+   location:str | None = None
    event:str | None = None
    app:str
 
