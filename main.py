@@ -1,6 +1,7 @@
 # main.py
 
 from fastapi import FastAPI
+from pydantic import BaseModel
 import json
 import short
 import inShort
@@ -32,7 +33,13 @@ def load_news_data(filename):
   except json.JSONDecodeError as e:
     print(f"Error: Failed to parse JSON data. {e}")
     return None
-
+def writeToJsonFile(jsondata,fileName="news.json"):
+       
+    # Open the file in write mode ("w")
+    with open(fileName, "w") as outfile:
+        # Write the JSON data to the file using json.dump()
+        json.dump(jsondata, outfile, indent=4)  
+        # Add indentation for readability (optional)
 
 
 from fastapi.middleware.cors import CORSMiddleware
@@ -69,6 +76,7 @@ def res():
 @app.get("/")
 async def root():
     return short.fetch_html_sourceIE()
+    
 
 @app.get("/news")
 async def root():
@@ -81,3 +89,27 @@ async def root():
 async def shorts(count:int=50,category:str="all"):
     print("get for inshorts")
     return inShort.getNews(category,count)
+
+@app.get("/showvisits")
+async def showvisits():
+    # print("get for inshorts")
+    val = load_news_data("visits.json")
+    # print(val)
+    return val 
+
+
+class Visits(BaseModel):
+   ip:str
+   date:str
+   time:str
+   location:str
+   event:str | None = None
+   app:str
+
+@app.post("/visits")
+async def visits(visits:Visits):
+  
+  val = load_news_data("visits.json")  
+  val.insert(0,visits.dict())
+  writeToJsonFile(val,"visits.json")
+  return "200"
