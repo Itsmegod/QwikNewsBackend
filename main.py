@@ -1,6 +1,6 @@
 # main.py
 
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from pydantic import BaseModel
 import json
 import short
@@ -107,9 +107,10 @@ class Visits(BaseModel):
    app:str
 
 @app.post("/visits")
-async def visits(visits:Visits):
+async def visits(visits:Visits,request:Request):
   
-  val = load_news_data("visits.json")  
+  val = load_news_data("visits.json") 
+  visits.ip = request.client.host 
   val.insert(0,visits.dict())
   writeToJsonFile(val,"visits.json")
   return "200"
