@@ -114,3 +114,9 @@ async def visits(visits:Visits,request:Request):
   val.insert(0,visits.dict())
   writeToJsonFile(val,"visits.json")
   return "200"
+
+@app.get("/test")
+async def test():
+  print("CRON JOBB")
+  return "hit"
+  
