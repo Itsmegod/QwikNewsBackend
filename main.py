@@ -65,11 +65,8 @@ app.add_middleware(
 
 #I want to make it a main function to fectch news.
 def res():
-    try:
-      return load_news_data("news.json")
-    finally:
-      print("started fetching news")
-      IENews.get_news()
+    return load_news_data("news.json")
+    
    
    
 
@@ -89,6 +86,13 @@ async def root():
 async def shorts(count:int=50,category:str="all"):
     print("get for inshorts")
     return inShort.getNews(category,count)
+
+@app.get("/updatenews981")
+async def shorts(code:str="update"):
+    if(code=="update"):
+        IENews.get_news()
+        
+    return "END OF UPDATE"
 
 @app.get("/showvisits")
 async def showvisits():
