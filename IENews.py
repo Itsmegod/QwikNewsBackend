@@ -67,6 +67,9 @@ def parse_html_for_news(html_content):
         date = article.find('div',class_='date').text.strip()
         # print(date)
         img_url = article.find('img').get("data-src")
+        # sport doesn't have data-src, so below code is to find None for data-src and revert it to src.
+        if img_url is None:
+           img_url = article.find('img').get("src")
         title_element = article.find('h2', class_='title').find('a')
         title_text = ""
         page_url = ""
