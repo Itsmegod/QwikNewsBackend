@@ -66,7 +66,7 @@ def parse_html_for_news(html_content):
         
         date = article.find('div',class_='date').text.strip()
         # print(date)
-        img_url = article.find('img').get("src")
+        img_url = article.find('img').get("data-src")
         title_element = article.find('h2', class_='title').find('a')
         title_text = ""
         page_url = ""
