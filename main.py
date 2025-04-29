@@ -78,7 +78,7 @@ async def root():
 
 @app.get("/news")
 async def root():
-    response = requests.get("https://rndyk-2405-201-5-2840-49e2-9764-bb55-a953.a.free.pinggy.link/news")
+    response = requests.get("https://xyz.saurabhpareek.xyz/news")
     if response.status_code == 200:
         print ('OK!')
         return response.json()
@@ -97,7 +97,7 @@ async def shorts(count:int=50,category:str="all"):
 def shorts(code:str="update"):
     if(code=="update"):
         IENews.get_news()
-        response = requests.get("https://rndyk-2405-201-5-2840-49e2-9764-bb55-a953.a.free.pinggy.link//updatenews981")
+        response = requests.get("https://xyz.saurabhpareek.xyz/updatenews981")
         
     return "END OF UPDATE"
 
