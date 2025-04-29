@@ -6,6 +6,7 @@ import json
 import short
 import inShort
 import IENews
+import requests
 # import support
 # from fastapi_utils.tasks import repeat_every
 
@@ -77,8 +78,13 @@ async def root():
 
 @app.get("/news")
 async def root():
-    
-    return res() 
+    response = requests.get("https://rnojj-2405-201-5-2840-49e2-9764-bb55-a953.a.free.pinggy.link/news")
+    if resp.status_code == 200:
+        print ('OK!')
+        return response.json()
+    else:
+        
+        return res() 
 #This function is loading news data from news.json and sending as response.
 #File news.json is updated with latest news in a different func.
 
@@ -91,6 +97,7 @@ async def shorts(count:int=50,category:str="all"):
 async def shorts(code:str="update"):
     if(code=="update"):
         IENews.get_news()
+        response = await requests.get("https://rnojj-2405-201-5-2840-49e2-9764-bb55-a953.a.free.pinggy.link/updatenews981")
         
     return "END OF UPDATE"
 
