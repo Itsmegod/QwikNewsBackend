@@ -74,6 +74,10 @@ def res():
 @app.get("/")
 async def root():
     return short.fetch_html_sourceIE()
+
+@app.get("/newsapi")
+async def root():
+    return res() 
     
 
 @app.get("/news")
